@@ -82,13 +82,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = f"{os.getenv("PROJECT_NAME")}.wsgi.application"
 
-
-DATABASES={}
-DATABASES["default"]=dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
+if PRODUCTION:
+        DATABASES={}
+        DATABASES["default"]=dj_database_url.config(
+                default=os.getenv("DATABASE_URL"),
+                conn_max_age=600,
+                conn_health_checks=True,
+            )
+else:
+    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',  
+        }
+    }
+        
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -154,5 +163,5 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER 
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = 'django-db'
