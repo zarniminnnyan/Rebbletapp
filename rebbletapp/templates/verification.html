@@ -1,0 +1,113 @@
+{% extends 'resetpassword.html'%}
+{% load static %}
+{% block title %} Verify your code {% endblock %}
+{% block content %}
+<div class="header">
+    <div class="logo">
+        <div class="logo-text">Rebblet</div>
+    </div>
+    <p>We have sent OTP code to your email. Please verify it to reset your password</p>
+</div>
+
+<div class="simple-otp-container">
+  {% if messages %}
+    <div style="color: red; font-weight: bold;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+    <br>
+    <form id="simpleOtpForm" method="POST" action="{% url 'verify_otp' user_id %}">
+        {% csrf_token %}
+        <div class="rectangle-otp-input">
+            <input 
+                type="text" 
+                id="otpInput" 
+                name="otp" 
+                placeholder="verify OTP"
+                maxlength="6"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+            >
+        </div>
+        
+        <button type="submit" class="orange-verify-button" >
+            Verify
+        </button>
+    </form>
+</div>
+
+<style>
+    .simple-otp-container {
+        max-width: 350px;
+        margin: 40px auto;
+        text-align: center;
+    }
+    
+    .rectangle-otp-input {
+        margin-bottom: 25px;
+    }
+    
+    .rectangle-otp-input input {
+        width: 100%;
+        height: 40px;
+        padding: 0 20px;
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        letter-spacing: 10px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+    
+    .rectangle-otp-input input:focus {
+        border-color: #ff9800;
+        background-color: #fff;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+    }
+    
+    .orange-verify-button {
+        width: 100%;
+        height: 40px;
+        background-color: #ff9800; /* Orange color */
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .orange-verify-button:hover {
+        background-color: #f57c00; /* Darker orange on hover */
+    }
+    
+    .orange-verify-button:active {
+        transform: translateY(2px);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+        .simple-otp-container {
+            margin: 30px 20px;
+        }
+        
+        .rectangle-otp-input input {
+            height: 40px;
+            font-size: 18px;
+            letter-spacing: 8px;
+        }
+        
+        .orange-verify-button {
+            height: 40px;
+            font-size: 16px;
+        }
+    }
+</style>
+{% endblock %}

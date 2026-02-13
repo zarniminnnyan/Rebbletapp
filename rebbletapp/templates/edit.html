@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post - Reddit Style</title>
+   <link rel="stylesheet" href="{%static 'css/edit.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Edit Post</h2>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %} 
+            {{ form.as_p }}
+            
+            <div class="button-container">
+                <button type="button" class="cancel-button" onclick="window.history.back()">Cancel</button>
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

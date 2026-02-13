@@ -1,0 +1,1 @@
+web: python manage.py migrate && gunicorn Rebblet.wsgi:application --timeout 120
