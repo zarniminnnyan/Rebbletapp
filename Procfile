@@ -1,2 +1,1 @@
-web: python manage.py migrate && gunicorn Rebblet.wsgi:application --timeout 120
-worker: celery -A Rebblet worker -l info
+web: celery -A Rebblet worker --loglevel=info & python manage.py migrate && gunicorn Rebblet.wsgi  --bind 0.0.0.0:$PORT
