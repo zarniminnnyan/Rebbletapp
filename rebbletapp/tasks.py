@@ -13,6 +13,6 @@ def send_email(self,recipient_email, your_code):
             fail_silently=False,
         )
         return my_email 
-    except Exception as exec:
-        raise self.retry(exc=exec,countdown=5)
+    except Exception as e:
+        raise self.retry(exc=e,countdown=60)
     

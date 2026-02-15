@@ -14,7 +14,7 @@ from .serializers import PostSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model 
 from django.conf import settings
-from .tasks import send_email
+from rebbletapp.tasks import send_email
 import cloudinary
 import string 
 import secrets
@@ -23,7 +23,7 @@ import secrets
 ACTIVE_USER=get_user_model()
 
 def generate_otp_code(length=6):
-    return ''.join(secrets.choice(string.digits) for _ in range(length))
+    return "".join(secrets.choice(string.digits) for _ in range(length))
 
 def reset_password(request):
     if request.method == "POST":
@@ -44,6 +44,9 @@ def reset_password(request):
 
                 # Generate and send OTP
                 otp_code = generate_otp_code()
+                # print(f"Generated OT: {otp_code}")
+                # print(f"user.email: {user.email}")
+                
                 OTPcode.objects.create(user=user, otp_code=otp_code)
                 send_email.delay(user.email, otp_code)
 

@@ -4,6 +4,6 @@ from django.core.wsgi import get_wsgi_application
 
 load_dotenv()
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", f"{os.getenv("PROJECT_NAME")}.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", f"{os.getenv('PROJECT_NAME')}.settings")
 
 application = get_wsgi_application()

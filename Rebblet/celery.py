@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #tell celery where the setting is
-os.environ.setdefault("DJANGO_SETTINGS_MODULE",f"{os.getenv("PROJECT_NAME")}.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE",f"{os.getenv('PROJECT_NAME')}.settings")
 
 #define celery app
 app=Celery("celery_app")
