@@ -1,1 +1,1 @@
-web: celery -A Rebblet worker -l info & python manage.py migrate && gunicorn Rebblet.wsgi  --bind 0.0.0.0:$PORT
+web: celery -A Rebblet.celery worker --pool=solo -l INFO & python manage.py migrate && gunicorn Rebblet.wsgi  --bind 0.0.0.0:$PORT
